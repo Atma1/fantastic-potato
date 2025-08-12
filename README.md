@@ -1,6 +1,5 @@
 # Chatbot API Application
 
-This AdonisJS application implements a ### GET /api/conversation/:sessionId
 Get a specific conversation by session ID. **Requires authentication.**
 
 **Headers:**
@@ -8,7 +7,7 @@ Get a specific conversation by session ID. **Requires authentication.**
 Authorization: Bearer <client_id>
 ```
 
-**Response:**bot API that stores conversations in PostgreSQL and communicates with an external chatbot service.
+**Response:** bot API that stores conversations in PostgreSQL and communicates with an external chatbot service.
 
 ## Application Flow
 
