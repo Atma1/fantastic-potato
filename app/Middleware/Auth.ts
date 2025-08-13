@@ -34,10 +34,6 @@ export default class AuthMiddleware {
                 )
             }
 
-
-            // Store auth info for use in controllers (using meta)
-            ctx.request.updateBody({ auth })
-
             await next()
         } catch (error) {
             console.error('Authentication middleware error:', error)
