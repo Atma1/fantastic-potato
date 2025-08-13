@@ -1,4 +1,4 @@
-import { schema, CustomMessages } from '@ioc:Adonis/Core/Validator'
+import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class IdRouteParamsValidator {
@@ -8,7 +8,9 @@ export default class IdRouteParamsValidator {
 
   public schema = schema.create({
 
-    id: schema.number(),
+    id: schema.string({}, [
+      rules.uuid()
+    ])
   })
 
   public messages: CustomMessages = {
