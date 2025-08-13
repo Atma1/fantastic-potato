@@ -11,10 +11,15 @@ export default class ConversationsController {
         try {
             const page = request.input('page', 1)
             const limit = request.input('limit', 10)
+            const lastMessage = request.input('last_message')
 
-            const conversations = await Conversation.query()
-                .orderBy('updated_at', 'desc')
-                .paginate(page, limit)
+            const query = Conversation.query().orderBy('updated_at', 'desc')
+
+            if (lastMessage) {
+                query.where('last_message', 'like', `%${lastMessage}%`)
+            }
+
+            const conversations = await query.paginate(page, limit)
 
             return response.status(200).json(
                 ApiResponseResource.success(
