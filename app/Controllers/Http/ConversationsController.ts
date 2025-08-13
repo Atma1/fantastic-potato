@@ -16,7 +16,7 @@ export default class ConversationsController {
             const query = Conversation.query().orderBy('updated_at', 'desc')
 
             if (lastMessage) {
-                query.where('last_message', 'like', `%${lastMessage}%`)
+                query.where('last_messages', 'like', `%${lastMessage}%`)
             }
 
             const conversations = await query.paginate(page, limit)
