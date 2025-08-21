@@ -66,7 +66,8 @@ export default class QuestionsController {
                         sessionId: conversation.sessionId,
                         question,
                         response: botResponseText,
-                        conversationId: conversation.id
+                        conversationId: conversation.id,
+                        userMessageId: userMessage.id
                     }),
                     'Successfully created question',
                 )
@@ -118,26 +119,26 @@ export default class QuestionsController {
         }
     }
 
-    public async destroy({ params, response }: HttpContextContract) {
+    public async destroy({ request, response }: HttpContextContract) {
         try {
-            const messageId = params.id
-            const message = await Message.find(messageId)
+            const { id } = await request.validate(IdRouteParamsValidator)
+            const message = await Message.find(id)
 
             if (!message) {
                 return response.status(404).json(
-                    ApiResponseResource.error('Conversation not found')
+                    ApiResponseResource.error('Message not found')
                 )
             }
 
             await message.delete()
 
             return response.status(200).json(
-                ApiResponseResource.success('Conversation deleted successfully')
+                ApiResponseResource.success('Message deleted successfully')
             )
         } catch (error) {
             console.error('Error in destroy:', error)
             return response.status(500).json(
-                ApiResponseResource.error('Failed to delete conversation', error.message)
+                ApiResponseResource.error('Failed to delete message', error.message)
             )
         }
     }
